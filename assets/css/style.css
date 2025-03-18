@@ -17,10 +17,6 @@ nav {
     justify-content: space-between;
 }
 
-nav h1 {
-    font-size: 2rem;
-}
-
 .input-box {
     display: flex;
     align-items: center;
@@ -225,10 +221,6 @@ h2 {
 }
 
 @media screen and (max-width: 640px) {
-    nav h1 {
-        font-size: 1.5rem;
-    }
-
     nav a {
         font-size: 1.5rem;
     }

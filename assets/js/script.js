@@ -21,6 +21,9 @@ const youtubeChannelUrl = "https://www.youtube.com/channel/";
 // url to construct for youtube video
 const youtubeVideoUrl = "https://www.youtube.com/watch?v=";
 
+// array to store all the fetched videos
+const allVideos = [];
+
 // eventlistener to search the video from the enter key
 videoSearch.addEventListener("keypress", (event) => {
   if (event.code === "Enter") searchVideos();
@@ -31,9 +34,26 @@ videoSearchBtn.addEventListener("click", searchVideos);
 
 // function to give the searched videos
 function searchVideos() {
-  const title = videoSearch.value.trim();
-  if (!title || title === "") return;
-  alert(title);
+  // get the searched value
+  const searched = videoSearch.value.trim().toLowerCase();
+
+  // if no value, return
+  if (!searched || searched === "") return;
+
+  // initialize search videos
+  let searchedVideos = [];
+
+  // filter the searched videos from all videos
+  searchedVideos = allVideos.filter((video) => video.title.toLowerCase().includes(searched));
+
+  // if no videos, then alert the user and return
+  if (searchedVideos.length <= 0) return;
+
+  // remove all the videos from container
+  videoContainer.innerHTML = "";
+
+  // add all the searched videos inside container
+  searchedVideos.forEach((video) => addToGrid(video));
 }
 
 // function to get views
@@ -135,6 +155,7 @@ function addToGrid(videoObj) {
   videoContainer.appendChild(videoBox);
 }
 
+// function to fetch and load all videos on homepage
 function fetchFreeApiData(apiUrl, options) {
   // fetch api request
   fetch(apiUrl, options)
@@ -152,6 +173,9 @@ function fetchFreeApiData(apiUrl, options) {
           thumbnails: videoInfo.items.snippet.thumbnails,
           viewCount: videoInfo.items.statistics.viewCount,
         };
+
+        // store the fetched video in to array
+        allVideos.push(videoObj);
 
         // send the object
         addToGrid(videoObj);
