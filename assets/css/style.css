@@ -41,6 +41,10 @@ nav {
     outline: none;
 }
 
+.input-box input::placeholder {
+    color: red;
+}
+
 .input-box img {
     filter: invert(1);
     height: 30px;

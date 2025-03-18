@@ -37,8 +37,12 @@ function searchVideos() {
   // get the searched value
   const searched = videoSearch.value.trim().toLowerCase();
 
-  // if no value, return
-  if (!searched || searched === "") return;
+  // if no value, then display error message and return
+  if (!searched || searched === "") {
+    videoSearch.value = "";
+    videoSearch.placeholder = "Please enter something to search!";
+    return;
+  }
 
   // initialize search videos
   let searchedVideos = [];
@@ -46,8 +50,12 @@ function searchVideos() {
   // filter the searched videos from all videos
   searchedVideos = allVideos.filter((video) => video.title.toLowerCase().includes(searched));
 
-  // if no videos, then alert the user and return
-  if (searchedVideos.length <= 0) return;
+  // if no videos, then display error message and return
+  if (searchedVideos.length <= 0) {
+    videoSearch.value = "";
+    videoSearch.placeholder = "No videos found!";
+    return;
+  }
 
   // remove all the videos from container
   videoContainer.innerHTML = "";
